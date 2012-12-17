@@ -1,0 +1,510 @@
+%!TEX TS-program = latex
+%!TEX encoding = UTF-8 Unicode
+%
+% Copyright 2009 Cristóvão Sousa
+% License: CC-BY (http://creativecommons.org/licenses/by/3.0/)
+
+\documentclass[
+%   draft,
+  a4paper,
+%   titlepage,
+  onecolumn,
+  11pt,
+  ]%
+% {scrartcl}%
+{article}%
+
+
+
+\usepackage[utf8]{inputenc} % codificação deste ficheiro em UTF-8
+
+\usepackage[T1]{fontenc} % necessário para que os caracteres acentuados possam ser considerados como um só bloco ( efeito colaterar: se você gerar PDFs a partir do arquivo tex as fontes vão ficar terríveis)
+
+%% precisa ser carregado um outro tipo de letra por causa do efeito colateral do pacote T1:
+\usepackage{lmodern} % Fonte "Latin Modern" - A solução óptima para fontes latinas (resolve o problema do T1)
+% \usepackage{times}   % Fonte "Times New"
+% \usepackage{palatino}  % Fonte
+% \usepackage{newcent}   % Fonte
+% \usepackage{bookman}   % Fonte
+% \usepackage{pandora}   % Fonte
+% \usepackage{helvet}    % Fonte
+% \usepackage{avant}     % Fonte
+
+\usepackage{textcomp} % caracteres extra - símbolo do euro por exemplo
+
+% \usepackage[portuguese]{babel} % tradução portuguesa
+% \newcommand{\referencesname}{Bibliografia}
+\newcommand{\referencesname}{References}
+
+%%%%%%%%%% Packages
+
+
+\usepackage[pdftex]{graphicx} % figuras 
+% \usepackage{subfigure} % subfiguras ( a,b,... )
+% \usepackage{wrapfig} % figuras ao lado de texto
+
+
+\usepackage{array} % mais opções nas tabelas (m{width}, b{width}, ...)
+\setlength{\extrarowheight}{1pt} % extra espaço entre as linhas das tabelas
+% \usepackage{multirow} % tabelas com células multilinha
+
+\usepackage{fancyhdr} % Estilo de página
+
+% \usepackage{listings} % Highlight de código fonte
+% \renewcommand{\lstlistingname}{Listagem} % tradução para português (referente ao package listings)
+% \renewcommand{\lstlistlistingname}{Listagens} % tradução para português (referente ao package listings)
+
+\usepackage[usenames,hyperref,pdftex%
+ ,svgnames%
+ ,x11names%
+ ,dvipsnames%
+ ]{xcolor} % Utilização de cores
+
+
+\usepackage[left=2.3cm,right=2.4cm]{geometry} % Margins
+
+% \usepackage{setspace} % spacing between lines (\singlespacing, \onehalfspacing, ...)
+
+% math packages by AMS
+% \usepackage{amsmath} % main one
+% \usepackage{amsfonts}
+% \usepackage{amssymb}
+
+
+% \usepackage{moreverb} % more verbatim options (boxedverbatim)
+\usepackage{fancyvrb} % more verbatim options 
+
+% \usepackage{lipsum}
+
+
+% \usepackage{tikz}
+% Optional tikz libraries
+% \usetikzlibrary{arrows}
+
+
+% \usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage[protrusion=true,expansion=true,stretch=10,shrink=10]{microtype} % micro-typographic extensions of pdfTEX (gets high quality text compostion)
+
+\usepackage[
+      pdftex,             %driver
+      a4paper,            % A4 paper
+      colorlinks=true,    %no frame around URL
+      urlcolor=MidnightBlue!80!white,    %no colors
+%       menucolor=black,    %no colors
+%       linkcolor=black,    %no colors
+%       pagecolor=black,    %no colors
+%       citecolor=black,    %no colors
+      bookmarks=true,    %tree-like TOC
+      bookmarksopen=true,    %expanded when starting
+      bookmarksnumbered=true, %Put section numbers in bookmarks
+      hyperfootnotes=true,    %no referencing of footnotes, does not compile
+      pdfpagemode=UseOutlines,    %show the bookmarks when starting the pdf viewer
+      plainpages=false, %solve problem ``destination with the same identifier'' warning
+      pdfpagelabels %solve problem ``destination with the same identifier'' warning
+]{hyperref} % fazer hyperlinks (usar como último ``usepackage'')
+
+
+% \usepackage[style=altlist,hypertoc,hyper,number=page]{glossary}
+
+
+% \usepackage{pdfpages}
+
+
+% \usepackage[]{todonotes}
+% \usepackage[disable]{todonotes}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% Ifenização
+\hyphenation{apli-ca-ção cons-tru-ção}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Criação de comandos:
+
+% \newcommand{\todo}[1]{{\sffamily \slshape {{\bfseries \textcolor{red}{TODO: }}\textcolor{blue}{#1}}}}
+\newcommand{\note}[1]{{\sffamily \slshape \textcolor{red}{#1}}}
+
+\colorlet{FPathColor}{Sepia}
+\colorlet{CmdColor}{MediumBlue}
+\colorlet{CmdRuleColor}{LightSteelBlue}
+\colorlet{FileTextColor}{DarkGreen}
+\CustomVerbatimCommand{\FPath}{Verb}{formatcom=\color{FPathColor},fontsize=\normalsize}
+\CustomVerbatimCommand{\Cmd}{Verb}{formatcom=\color{CmdColor},fontsize=\normalsize}
+\CustomVerbatimCommand{\FText}{Verb}{formatcom=\color{FileTextColor},fontsize=\normalsize}
+\DefineVerbatimEnvironment%
+  {Command}{Verbatim}
+  {formatcom=\color{CmdColor},frame=single,rulecolor=\color{CmdRuleColor},fontsize=\normalsize}
+\DefineVerbatimEnvironment%
+  {FileText}{Verbatim}
+  {formatcom=\color{FileTextColor},fontsize=\normalsize}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Definições para a classe do documento:
+
+\newcommand{\MYtitlestring}{How-to Install RTAI in Ubuntu 10.04}
+\newcommand{\MYauthorstring}{Jorge Azevedo Cristóvão Sousa}
+\newcommand{\MYkeywordsstring}{how-to, RTAI, Ubuntu, Lucid, 10.04, installation}
+\newcommand{\MYsubjectstring}{RTAI installation}
+\newcommand{\MYemailstring}{jorge.azevedo@gmail.com}
+\newcommand{\MYversionstring}{v1.0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\hypersetup{%
+   pdftitle=\MYtitlestring,%
+   pdfauthor=\MYauthorstring,%
+%    pdfcreator=,%
+   pdfkeywords= {\MYkeywordsstring},%
+%    pdfproducer=,%
+   pdfsubject= \MYsubjectstring%
+} % informações do pdf (pacote hyperref)
+
+\pdfinfo{
+/Title	(\MYtitlestring)
+/Author (\MYauthorstring)
+/Keywords (\MYkeywordsstring)
+} % informações do pdf
+
+
+\title{\MYtitlestring}
+\author{Jorge Azevedo\\
+{\normalsize \href{mailto:\MYemailstring}{\MYemailstring}}}
+\date{\MYversionstring\ -- {\normalsize \today}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+ This \emph{how-to} describes one way to install RTAI 3.8.1 on Ubuntu (or \emph{Any}buntu) 10.04 (Lucid Lynx) with Linux kernel 2.6.32.
+\end{abstract}
+
+
+
+\section*{Disclaimer}
+The author makes no representations or warranties with respect to the contents or use of this document.
+Use it at your own risk.
+
+
+\section{Introduction}
+This guide is intended to help installing RTAI in an Ubuntu based Linux system.
+As it specifically provides commands to this distribution and version, the process should be quite similar on other Debian based distros.
+This Ubuntu version comes with 2.6.32.x kernel version, so a 2.6.32 kernel should be used\footnote{Please note that the latest 64 bit kernel supported by RTAI is version 2.6.23.}.
+
+This guide is an updated version of "How-to Install RTAI in Ubuntu Hardy" by Cristóvão Sousa, who was kind enough to release his original work under a Creative Commons license and send me his source files.
+
+
+\section{Preparation}
+The first step in installing RTAI is installing the necessary packages from the repositories. These will prepare your system for building a custom kernel. The second step is downloading the necessary source code.
+
+\begin{itemize}
+ \item All the necessary packages for compiling, configuring and generating a package can be installed via the following commands
+ \begin{Command}
+sudo apt-get build-dep linux-image-2.6.32-21-generic
+sudo apt-get install libncurses5-dev kernel-package
+ \end{Command}
+ \item Linux source code is usually located in \FPath|/usr/src|, so let's start by going there
+ \begin{Command}
+cd /usr/src
+ \end{Command}
+ \item Download and extract Linux kernel 2.6.32.11
+ \begin{Command}[commandchars=\\\{\}]
+\footnotesize{wget -O - www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.32.11.tar.bz2 | sudo tar -jxf -}
+ \end{Command}
+ \item Download and extract RTAI 3.8.1
+ \begin{Command}
+wget -O - https://www.rtai.org/RTAI/rtai-3.8.1.tar.bz2 | sudo tar -jxf -
+ \end{Command}
+ \item Rename linux source directory to a more descriptive name (optional):
+ \begin{Command}
+sudo mv linux-2.6.32.11 linux-2.6.32.11-rtai-3.8.1
+ \end{Command}
+ \item Create symbolic links to the two new folders (you can choose other names if you want):
+ \begin{Command}
+sudo ln -snf linux-2.6.32.11-rtai-3.8.1 linux
+sudo ln -snf rtai-3.8.1 rtai
+ \end{Command}
+\end{itemize}
+
+
+\section{Kernel Patching and Configuration}
+
+
+\begin{itemize}
+ \item Patch the kernel source with the correspondent RTAI patch:
+ \begin{Command}[commandchars=\\\{\}]
+cd /usr/src/linux
+\footnotesize{sudo patch -p1 -b < /usr/src/rtai/base/arch/x86/patches/hal-linux-2.6.32.11-x86-2.6-03.patch}
+ \end{Command}
+ \item In order to make the new kernel configuration the most similar to the already installed one you can do the two next steps:
+ \begin{Command}[commandchars=\\\{\}]
+sudo cp /boot/config-\`{}uname -r\`{} ./.config
+sudo make oldconfig   # then press Enter on all prompts
+ \end{Command}
+ Press Enter on all the prompts of the last command.
+
+\item Now it's time to configure the new kernel:
+ \begin{Command}
+sudo make menuconfig
+ \end{Command}
+
+ In the menu there are many parameters you can change if you know what you are doing.\\
+The changes needed by RTAI are:
+
+  \begin{itemize}
+   \item \FText|[ ] Enable loadable module support|
+
+    \FText|[ ] Module versioning support|
+   \item \FText|Processor type and features|
+
+   \FText|[*] Interrupt pipeline|
+
+  \FText|Processor family| = choose yours
+
+  \FText|Symmetric multi-processing support| = no/yes
+  \end{itemize}
+  If your machine has a single core processor uncheck this last option.
+  If your machine has multicore you can choose to use all or only one\footnote{In case you want to simulate a single core machine.}.
+
+   Because power management is a "latency killer" you should turn it off:
+  \begin{itemize}
+   \item \FText|Power management and ACPI options|
+
+   \FText|[ ] Power Management support|
+
+   \FText|[ ] CPU Frequency scaling| > \FText|CPU Frequency scaling|
+  \end{itemize}
+  
+
+  After all changes exit and say yes to save the configuration.
+
+ \item Optionally you can make a backup for the new configuration file:
+ \begin{Command}
+cd /usr/src/linux ; sudo cp .config /boot/config-2.6.24-rtai-3.6.1
+ \end{Command}
+
+\end{itemize}
+
+
+
+\section{Kernel Compilation}
+
+
+\begin{itemize}
+
+
+%  \item At this point the kernel source is ready to compilation. Do the next:
+%  \begin{Command}
+% sudo make
+%  \end{Command}
+%  This can take up to one hour depending in the machine you are using.
+%  You will see many warning messages, don't worry.
+%  If this command ends with an error you should try to fix it and compile again (internet can be your friend).
+% 
+%  \item Now install the kernel image and modules:
+%  \begin{Command}
+% sudo make install
+% sudo make modules_install
+%  \end{Command}
+% 
+%  \item Create a new initial ram disk file system:
+%  \begin{Command}
+% sudo mkinitramfs -o /boot/initrd.img-2.6.24-rtai-3.6.1
+%  \end{Command}
+% 
+%  \item Edit \FPath|/boot/grub/menu.lst| to add a entry to the new `-rtai-3.6.1' kernel.
+%  Add the next lines:
+%  \begin{FileText}[commandchars=\\\{\}]
+% title    Ubuntu 8.04 + RTAI, kernel 2.6.24-rtai-3.6.1
+% root     (hd{\color{blue}x},{\color{red}y})
+% kernel   /boot/vmlinuz-2.6.24-rtai-3.6.1
+% initrd   /boot/initrd.img-2.6.24-rtai-3.6.1
+%  \end{FileText}
+%  Where {\ttfamily\color{blue}x} and {\ttfamily\color{red}y} refere to the installation partition.
+%  You can know them looking at the other entries.
+  \item First prepare for a clean compilation
+  \begin{Command}
+sudo make-kpkg clean
+  \end{Command}
+
+ \item At this point the kernel source is ready for compilation. The next command will compile the kernel and generate debian packages. You should adjust concurrency level (number of paralell jobs) to your machine. Some suggest that it should be the number of cores plus one for maximum cpu usage. You should also adjust the --append-to-version parameter to fit your needs. In this case, the generated kernel version will be \FPath|2.6.32.11-rtai-3.8.1|.
+ \begin{Command}
+sudo CONCURRENCY_LEVEL=5 CLEAN_SOURCE=no fakeroot make-kpkg --initrd \
+--append-to-version -rtai-3.8.1 kernel_image kernel_headers
+ \end{Command}
+ This can take from 30 minutes to 3 hours depending on the machine you are using.
+ It can also consume up to 4 GB of disk space.
+ You will see many warning messages, don't worry.
+ If this command ends with an error you should try to fix it and compile again (the internet is your friend).
+
+ \item Two deb packages are generated in \FPath|/usr/src/|, kernel image and source headers.
+ If you wish you can free the disk space used in the compilation with \Cmd|sudo make-kpkg clean|.
+ 
+ 
+\end{itemize}
+
+
+
+\section{Kernel Installation}
+
+\begin{itemize}
+
+ \item Go to the packages directory:
+ \begin{Command}
+cd /usr/src/
+ \end{Command}
+ \item Install the kernel image and source headers packages:
+ \begin{Command}[commandchars=\\\{\}]
+\footnotesize{sudo dpkg -i linux-headers-2.6.32.11-rtai-3.8.1_2.6.32.11-rtai-3.8.1-10.00.Custom_i386.deb}
+\footnotesize{sudo dpkg -i linux-image-2.6.32.11-rtai-3.8.1_2.6.32.11-rtai-3.8.1-10.00.Custom_i386.deb}
+ \end{Command}
+\item Although the package installation creates a new grub entry, it doesn't create a new initramfs image and therefore the kernel is unbootable. Notice that all kernels installed in your system can be listed with
+ \begin{Command}[commandchars=\\\{\}]
+ls /lib/modules
+ \end{Command}
+
+To generate a new initramfs and update grub run
+ \begin{Command}[commandchars=\\\{\}]
+sudo update-initramfs -c -k 2.6.32.11-rtai-3.8.1 && sudo update-grub
+ \end{Command}
+
+\item Due to a bug in Grub 2, the system is still unbootable. While removing Grub 2 and installing Grub 1 will solve the issue, a more practical solution is to edit directly the grub.cfg entry for the newly compiled kernel and add 16 to end of the word linux and initrd. So, with your favorite editor you can edit grub.cfg
+ \begin{Command}[commandchars=\\\{\}]
+sudo vim /etc/grub/grub.cfg
+ \end{Command}
+
+And change the entry so that instead of
+
+ \begin{FileText}
+        linux   /boot/vmlinuz-2.6.32.11-rtai-3.8.1 (...)
+        initrd  /boot/initrd.img-2.6.32.11-rtai-3.8.1
+ \end{FileText}
+
+it reads
+
+ \begin{FileText}
+        linux16   /boot/vmlinuz-2.6.32.11-rtai-3.8.1 (...)
+        initrd16  /boot/initrd.img-2.6.32.11-rtai-3.8.1
+ \end{FileText}
+
+You should now force save your changes since grub.cfg is a read only file. Please bear in mind that any call to \Cmd|update-grub| will generate a fresh grub.cfg. The workaround will have to be applied manually every time.
+
+\item Now, you must reboot. Choose the new RTAI patched kernel in Grub. If the process fails, the most likely problem is a faulty kernel configuration. You might be interested in consulting section~\ref{sec:further_reading}.
+
+\end{itemize}
+
+\section{RTAI Configuration and Installation}
+
+\begin{itemize}
+ \item Creating a build tree separated from the source tree of RTAI is advised by RTAI people, so do
+ \begin{Command}
+cd /usr/src/rtai
+sudo mkdir build
+cd build
+ \end{Command}
+
+
+ \item Configure and compile RTAI:
+ \begin{Command}
+sudo make -f ../makefile menuconfig
+ \end{Command}
+
+  \begin{itemize}
+   \item \FText|General| > \FText|Linux source tree| = \FPath|/usr/src/linux-2.6.32.11-rtai-3.8.1|
+   \item \FText|Machine (x86)| > \FText|Number of CPUs (SMP-only)| = the right number (if applicable)
+%    \item \note{todo: add more?}
+  \end{itemize}
+ At the end exit and say yes to save the configuration. RTAI will be compiled.
+
+ \item If there were no errors, install RTAI:
+ \begin{Command}
+sudo make install
+ \end{Command}
+ 
+ \item Configure RTAI dynamic libraries to be wide available:
+ \begin{Command}
+sudo -s
+echo /usr/realtime/lib/ > /etc/ld.so.conf.d/rtai.conf
+exit
+sudo ldconfig
+ \end{Command}
+
+ \item The RTAI binaries directory can be added automatically to the \FText|$PATH| variable. To do that, add the line
+ \begin{FileText}
+PATH="$PATH:/usr/realtime/bin"
+ \end{FileText}
+ to  the end of \FPath'~/.profile' (user) and/or \FPath'/root/.profile' (root). It also comes in handy to define an alias for sudo so that it inherits the \FText|$PATH| variable. To do this, add
+ \begin{FileText}
+alias sudo="sudo env PATH=$PATH"
+ \end{FileText}
+to \FPath'~/.bashrc'.
+
+\end{itemize}
+
+\section{RTAI Test}
+If everything goes smoothly in the above steps RTAI is readily installed. To be sure execute the latency test:
+\begin{Command}
+cd /usr/realtime/testsuite/kern/latency/
+sudo ./run
+\end{Command}
+Press \Cmd|Ctrl-C| to stop. A typical output from a successfull instalation looks like 
+ \begin{FileText}
+RTAI Testsuite - KERNEL latency (all data in nanoseconds)
+RTH|    lat min|    ovl min|    lat avg|    lat max|    ovl max|   overruns
+RTD|      -1566|      -1566|      -1525|       -995|       -995|          0
+RTD|      -1571|      -1571|      -1489|       8257|       8257|          0
+RTD|      -1569|      -1571|      -1527|        -89|       8257|          0
+RTD|      -1566|      -1571|      -1525|       -481|       8257|          0
+RTD|      -1566|      -1571|      -1529|      -1049|       8257|          0
+RTD|      -1566|      -1571|      -1529|       -939|       8257|          0
+ \end{FileText}
+
+\section{Conclusion}
+That's all. Your machine is ready for real time. If some problems arise during the process you can try to solve them by searching the internet for the error sentence.
+
+\section{Further reading}
+\label{sec:further_reading}
+Here is a list of helpful documents for further help on RTAI.
+
+  \begin{itemize}
+\item \textbf{How-to Install RTAI in Ubuntu Hardy} (on which this guide was based) and \textbf{RTAI Tutorial} by Cristóvão Sousa contain valuable information about both installation and programming using the RTAI API.
+
+\item \textbf{RTAI Installation Complete Guide} and \textbf{Building Your Way Through RTAI} by \href{http://www.linkedin.com/in/jefmonteiro/en}{João Monteiro} approach the same matters as the previous set of documents, but with a more in-depth view of the RTAI API.
+
+\item A \textbf{Guide to Installing RTAI Linux} by Keith Shortridge is a more extensive look at the installation procedure than the more practical approach developed in this guide.
+
+\item \textbf{RTAI 3.8 on Ubuntu(9.10)-Linux-kernel : 2.6.31.8} by \href{http://arturodeza.wikidot.com/data-log}{Manuel Arturo Deza} is another installation guide.
+  \end{itemize}
+
+
+% \section{References}
+\phantomsection \addcontentsline{toc}{section}{\referencesname}
+% \bibliographystyle{unsrt}
+%\bibliographystyle{IEEEtran}
+\bibliography{biblio}
+%\nocite{manual:rtai-3.4}
+%\nocite{manual:joao:rtaiinst}
+
+
+% \newpage
+% % \thispagestyle{empty}
+% \null
+
+% \cleardoublepage
+% \listoftodos
+
+\end{document}
+
