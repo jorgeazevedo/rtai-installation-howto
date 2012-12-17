@@ -3,7 +3,9 @@ RTAI Installation How-to
 
 This is a pdf guide that explains how to install RTAI on Ubuntu 10.04.
 
-To produce the pdf from the .tex run
+A pdf render is available in the repository for direct download.
+
+To compile the pdf from the .tex source run
 
     make
     make force
